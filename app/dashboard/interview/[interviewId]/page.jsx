@@ -10,6 +10,7 @@ function Interview(params) {
     console.log(params.interviewId);
     GetInterviewDetails();
   }, []);
+
   /**
    * used to get interview details by mockid/interviewid
    */
