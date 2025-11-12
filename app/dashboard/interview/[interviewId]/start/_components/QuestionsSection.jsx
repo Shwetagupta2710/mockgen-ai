@@ -23,7 +23,6 @@ function QuestionsSection({ mockInterviewQuestion = [] }) {
           ))}
         </div>
 
-        {/* Active Question Display */}
         {mockInterviewQuestion.length > 0 && (
           <div className="mt-8 p-5 border rounded-lg bg-gray-50">
             <h3 className="font-semibold text-lg mb-3">
@@ -36,7 +35,6 @@ function QuestionsSection({ mockInterviewQuestion = [] }) {
           </div>
         )}
 
-        {/* Tip Section */}
         <div className="mt-6 border rounded-lg p-4 bg-blue-100">
           <h2 className="flex gap-2 items-center text-primary mb-2">
             <Lightbulb className="w-5 h-5" />
