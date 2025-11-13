@@ -4,8 +4,14 @@ import { mockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import QuestionsSection from "./_components/QuestionsSection";
-import RecordAnswerSection from "./_components/RecordAnswerSection";
+import { Button } from "@/components/ui/button";
+
+const RecordAnswerSection = dynamic(
+  () => import("./_components/RecordAnswerSection"),
+  { ssr: false }
+);
 
 function StartInterview() {
   const { interviewId } = useParams();
@@ -23,7 +29,6 @@ function StartInterview() {
   const GetInterviewDetails = async () => {
     try {
       setIsLoading(true);
-
       const result = await db
         .select()
         .from(mockInterview)
@@ -35,24 +40,14 @@ function StartInterview() {
 
         try {
           const data = JSON.parse(interview.jsonMockResp);
-          if (Array.isArray(data)) {
-            parsedQuestions = data;
-          } else if (Array.isArray(data.questions)) {
-            parsedQuestions = data.questions;
-          } else {
-            console.warn("Parsed JSON is not an array:", data);
-          }
+          if (Array.isArray(data)) parsedQuestions = data;
+          else if (Array.isArray(data.questions)) parsedQuestions = data.questions;
         } catch (err) {
-          console.error(
-            "Invalid JSON format for mock interview questions:",
-            err
-          );
+          console.error("Invalid JSON format for mock interview questions:", err);
         }
 
         setMockInterviewQuestion(parsedQuestions);
         setInterviewData(interview);
-      } else {
-        console.warn("No interview found for ID:", interviewId);
       }
     } catch (error) {
       console.error("Failed to fetch interview details:", error);
@@ -70,23 +65,57 @@ function StartInterview() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-5 md:px-10">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-        {/* Left Section: Questions */}
-        <div className="flex flex-col justify-between">
-          <QuestionsSection
-            mockInterviewQuestion={mockInterviewQuestion || []}
-            activeQuestionIndex={activeQuestionIndex}
-          />
-        </div>
+    <div className="min-h-screen bg-gray-50 py-10 px-5 md:px-10 relative">
+      <div className="max-w-6xl mx-auto pb-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {/* Left Section: Questions */}
+          <div className="flex flex-col justify-between">
+            <QuestionsSection
+              mockInterviewQuestion={mockInterviewQuestion || []}
+              activeQuestionIndex={activeQuestionIndex}
+              setActiveQuestionIndex={setActiveQuestionIndex}
+            />
+          </div>
 
-        {/* Right Section: Webcam */}
-        <div className="flex justify-center items-center">
-          <RecordAnswerSection
-            mockInterviewQuestion={mockInterviewQuestion || []}
-            activeQuestionIndex={activeQuestionIndex}
-          />
+          {/* Right Section: Webcam */}
+          <div className="flex justify-center items-center">
+            {!isLoading && (
+              <RecordAnswerSection
+                mockInterviewQuestion={mockInterviewQuestion || []}
+                activeQuestionIndex={activeQuestionIndex}
+                interviewData={interviewData}
+              />
+            )}
+          </div>
         </div>
+      </div>
+
+      <div className="fixed bottom-0 left-0 w-full bg-white border-t shadow-md flex justify-end gap-4 px-6 py-4 z-50">
+        {activeQuestionIndex > 0 && (
+          <Button
+            onClick={() => setActiveQuestionIndex(activeQuestionIndex - 1)}
+            variant="outline"
+          >
+            Previous Question
+          </Button>
+        )}
+        {activeQuestionIndex !== mockInterviewQuestion?.length - 1 && (
+          <Button
+            onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
+          >
+            Next Question
+          </Button>
+        )}
+        {activeQuestionIndex === mockInterviewQuestion?.length - 1 && (
+          <Button
+            onClick={() =>
+              (window.location.href = `/dashboard/interview/${interviewId}/feedback`)
+            }
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            End Interview
+          </Button>
+        )}
       </div>
     </div>
   );
