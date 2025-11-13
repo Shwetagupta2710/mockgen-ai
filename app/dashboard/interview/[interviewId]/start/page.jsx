@@ -82,7 +82,10 @@ function StartInterview() {
 
         {/* Right Section: Webcam */}
         <div className="flex justify-center items-center">
-          <RecordAnswerSection />
+          <RecordAnswerSection
+            mockInterviewQuestion={mockInterviewQuestion || []}
+            activeQuestionIndex={activeQuestionIndex}
+          />
         </div>
       </div>
     </div>
