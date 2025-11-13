@@ -24,7 +24,11 @@ function RecordAnswerSection() {
     stopSpeechToText,
   } = speech || {};
 
-  useEffect(() => {}, [results]);
+  useEffect(() => {
+    results.map((result) =>
+      setUserAnswer((prevAns) => prevAns + result?.transcript)
+    );
+  }, [results]);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -45,13 +49,16 @@ function RecordAnswerSection() {
           onClick={isRecording ? stopSpeechToText : startSpeechToText}
         >
           {isRecording ? (
-            <h2>
+            <h2 className="text-red-600 flex-gap-2">
               <Mic />
-              'Recording'
+              Stop Recording
             </h2>
           ) : (
             "Record Answer"
           )}
+        </Button>
+        <Button onClick={() => console.log(userAnswer)}>
+          Show User Answer
         </Button>
       </div>
     </div>
