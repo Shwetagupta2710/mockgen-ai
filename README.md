@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 MockGen AI
 
-## Getting Started
+AI-powered mock interview platform to help students, freshers, and professionals practice real interviews with live feedback, voice input, and intelligent scoring.
 
-First, run the development server:
+MockGen AI simulates real interview experiences using AI-generated questions, speech-to-text analysis, and instant feedback — all inside a clean and intuitive interface.
+
+---
+
+## 📌 Features
+
+### 🎯 AI-Generated Questions
+
+- Dynamic interview questions based on job role, experience level, and technology stack.
+- Powered by Gemini API for contextual, realistic question generation.
+
+### 🎙 Voice-Based Answering
+
+- Speak directly using your microphone.
+- Browser Speech-to-Text converts spoken answers into text in real-time.
+
+### 🧠 Real-Time AI Feedback
+
+- Clarity score
+- Filler word detection
+- Pace and confidence analysis
+- Personalized improvement suggestions
+
+### 📹 Webcam-Based Interface
+
+- Optional webcam support for realistic interview simulation.
+- No recordings stored — privacy-first.
+
+### 📊 Interview Report
+
+- Summary of your performance
+- AI insights for each answer
+- Score breakdown
+
+### 👤 User Accounts with Clerk
+
+- Secure authentication
+- User-specific interview history
+- Personalized dashboard
+
+---
+
+## 🛠 Tech Stack
+
+### **Frontend**
+
+- Next.js 14 (App Router)
+- React
+- Tailwind CSS
+- ShadCN UI
+- Lucide Icons
+
+### **Backend**
+
+- Drizzle ORM
+- Neon / PostgreSQL
+
+### **AI**
+
+- Gemini API (Google Generative AI)
+
+### **Authentication**
+
+- Clerk Auth
+
+### **Other Tools**
+
+- react-webcam
+- react-hook-speech-to-text
+- Vercel Deployment
+
+---
+
+## 📦 Installation & Setup
+
+### 1️⃣ Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/mockgen-ai.git
+cd mockgen-ai
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
