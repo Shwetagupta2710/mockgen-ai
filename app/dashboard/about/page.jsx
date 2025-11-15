@@ -85,63 +85,63 @@ export default function AboutUsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white px-6 py-24">
+    <div className="min-h-screen bg-white px-4 sm:px-6 py-12 sm:py-16 md:py-24">
       <div className="max-w-7xl mx-auto">
         {/* HERO */}
-        <div className="text-center mb-28">
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight">
+        <div className="text-center mb-12 sm:mb-20 md:mb-28">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
             About MockGen AI
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mt-6">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto mt-4 sm:mt-6">
             AI-powered mock interviews crafted for students and professionals to
             practice, improve, and build confidence.
           </p>
         </div>
 
         {/* TABS SECTION */}
-        <div className="bg-white border rounded-xl shadow-lg overflow-hidden mb-[200px]">
+        <div className="bg-white border rounded-xl shadow-lg overflow-hidden mb-12 sm:mb-16 md:mb-[200px]">
           <div className="flex flex-col sm:flex-row border-b">
             {Object.keys(tabContent).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`w-full sm:flex-1 py-5 px-4 flex items-center justify-center text-base md:text-lg transition-all ${
+                className={`w-full sm:flex-1 py-4 sm:py-5 px-4 flex items-center justify-center text-sm sm:text-base md:text-lg transition-all ${
                   activeTab === tab
                     ? "text-indigo-600 font-semibold border-b-2 border-indigo-600 bg-gray-50"
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
               >
                 {tabContent[tab].icon}
-                <span className="hidden sm:inline capitalize">{tab}</span>
+                <span className="ml-2 sm:ml-0 sm:hidden md:inline capitalize">{tab}</span>
               </button>
             ))}
           </div>
 
-          <div className="p-9">{tabContent[activeTab].content}</div>
+          <div className="p-5 sm:p-7 md:p-9">{tabContent[activeTab].content}</div>
         </div>
 
         {/* SPACER so Core Values appear ONLY AFTER SCROLL */}
         <div className="h-1"></div>
 
         {/* CORE VALUES */}
-        <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
           Our Core Values
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
           {coreValues.map((value, index) => (
             <div
               key={index}
-              className="p-10 bg-white border rounded-xl shadow-md hover:shadow-xl transition-shadow text-center"
+              className="p-6 sm:p-8 md:p-10 bg-white border rounded-xl shadow-md hover:shadow-xl transition-shadow text-center"
             >
-              <div className="flex justify-center mb-6">{value.icon}</div>
+              <div className="flex justify-center mb-4 sm:mb-6">{value.icon}</div>
 
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
                 {value.title}
               </h3>
 
-              <p className="text-gray-600 text-lg leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
                 {value.description}
               </p>
             </div>

@@ -52,50 +52,50 @@ const HowItWorksPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white px-6 py-14 max-w-6xl mx-auto">
+    <div className="min-h-screen bg-white px-4 sm:px-6 py-8 sm:py-12 md:py-14 max-w-6xl mx-auto">
       {/* HERO SECTION */}
-      <div className="text-center flex flex-col items-center mb-16">
+      <div className="text-center flex flex-col items-center mb-10 sm:mb-14 md:mb-16">
         <Image
           src="/logo.svg"
-          width={190}
-          height={80}
+          width={160}
+          height={70}
           alt="MockGen AI Logo"
-          className="object-contain mb-6"
+          className="object-contain mb-4 sm:mb-6"
         />
 
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 px-2">
           Your Interview Preparation Companion
         </h1>
 
-        <p className="text-lg md:text-xl text-gray-600 mt-3 max-w-2xl">
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 mt-3 max-w-2xl px-2">
           Master your interviews with AI-powered practice and personalized
           insights.
         </p>
       </div>
 
       {/* HOW IT WORKS GRID */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
         {steps.map((step, index) => (
           <div
             key={step.title}
-            className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:-translate-y-1"
+            className="bg-white p-5 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all hover:-translate-y-1"
           >
-            <div className="flex items-center mb-4">
-              {step.icon}
-              <h2 className="ml-4 text-xl font-semibold text-gray-800">
+            <div className="flex items-start sm:items-center mb-4 gap-3">
+              <div className="flex-shrink-0">{step.icon}</div>
+              <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800">
                 Step {index + 1}: {step.title}
               </h2>
             </div>
-            <p className="text-gray-600">{step.description}</p>
+            <p className="text-sm sm:text-base text-gray-600">{step.description}</p>
           </div>
         ))}
       </div>
 
       {/* CTA */}
-      <div className="text-center mt-16">
+      <div className="text-center mt-10 sm:mt-14 md:mt-16 px-4">
         <a
           href="/dashboard"
-          className="bg-indigo-600 text-white px-10 py-3 rounded-full text-lg hover:bg-indigo-700 transition-all"
+          className="inline-block w-full sm:w-auto bg-indigo-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl"
         >
           Start Your Interview Journey
         </a>
