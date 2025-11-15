@@ -117,7 +117,6 @@ function RecordAnswerSection({
         .replace(/```json\n?|```/g, "")
         .trim();
 
-      console.log("AI Response:", mockJsonResp);
       const JsonFeedbackResp = JSON.parse(mockJsonResp);
 
       // Save to database
