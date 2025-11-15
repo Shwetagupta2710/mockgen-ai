@@ -12,7 +12,11 @@ import { UserAnswer } from "@/utils/schema";
 import moment from "moment";
 import { useUser } from "@clerk/nextjs";
 
-function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, interviewData }) {
+function RecordAnswerSection({
+  mockInterviewQuestion,
+  activeQuestionIndex,
+  interviewData,
+}) {
   const [micAllowed, setMicAllowed] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -32,6 +36,7 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
     interimResult,
     isRecording,
     results = [],
+    setResults,
     startSpeechToText,
     stopSpeechToText,
   } = useSpeechToText({
@@ -60,13 +65,15 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
   const handleRecordToggle = async () => {
     if (isRecording) {
       stopSpeechToText();
-      
+
       // Validate answer length before processing
       if (userAnswer?.length < 10) {
-        toast.error("Answer is too short. Please record again with more details.");
+        toast.error(
+          "Answer is too short. Please record again with more details."
+        );
         return;
       }
-      
+
       // Call UpdateUserAnswer to save and get feedback
       await UpdateUserAnswer();
       return;
@@ -109,7 +116,7 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
         .text()
         .replace(/```json\n?|```/g, "")
         .trim();
-      
+
       console.log("AI Response:", mockJsonResp);
       const JsonFeedbackResp = JSON.parse(mockJsonResp);
 
@@ -129,34 +136,40 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
         toast.dismiss();
         toast.success("User Answer recorded successfully!");
         setUserAnswer("");
+        setResults([]);
       }
     } catch (error) {
       console.error("Error in UpdateUserAnswer:", error);
       toast.dismiss();
 
       // Provide specific error messages
-      if (error.message?.includes("503") || error.message?.includes("overloaded")) {
+      if (
+        error.message?.includes("503") ||
+        error.message?.includes("overloaded")
+      ) {
         toast.error(
           "The AI service is currently overloaded. Please try again in a few moments.",
           { duration: 5000 }
         );
-      } else if (error.message?.includes("429") || error.message?.includes("rate limit")) {
+      } else if (
+        error.message?.includes("429") ||
+        error.message?.includes("rate limit")
+      ) {
         toast.error(
           "Rate limit exceeded. Please wait a moment before trying again.",
           { duration: 5000 }
         );
       } else if (error.message?.includes("API key")) {
-        toast.error(
-          "API configuration error. Please contact support.",
-          { duration: 5000 }
-        );
+        toast.error("API configuration error. Please contact support.", {
+          duration: 5000,
+        });
       } else {
-        toast.error(
-          "Failed to save your answer. Please try again.",
-          { duration: 5000 }
-        );
+        toast.error("Failed to save your answer. Please try again.", {
+          duration: 5000,
+        });
       }
     } finally {
+      setResults([]);
       setLoading(false);
       setIsProcessing(false);
     }
@@ -185,7 +198,11 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
           className="flex items-center gap-2"
         >
           <Mic className={isRecording ? "text-white animate-pulse" : ""} />
-          {isProcessing ? "Processing..." : isRecording ? "Stop Recording" : "Record Answer"}
+          {isProcessing
+            ? "Processing..."
+            : isRecording
+            ? "Stop Recording"
+            : "Record Answer"}
         </Button>
 
         {error && (
@@ -193,8 +210,6 @@ function RecordAnswerSection({ mockInterviewQuestion, activeQuestionIndex, inter
             🎙️ Speech recognition not supported in this browser.
           </p>
         )}
-
-         
       </div>
     </div>
   );
