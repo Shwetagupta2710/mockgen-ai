@@ -34,7 +34,6 @@ function Header() {
           onClick={() => router.push("/")}
         />
 
-        {/* Desktop Navigation */}
         <ul className="hidden md:flex gap-6">
           {navItems.map((item) => (
             <li
@@ -52,8 +51,7 @@ function Header() {
         {/* Mobile & Desktop Right Section */}
         <div className="flex items-center gap-3">
           <UserButton />
-          
-          {/* Mobile Menu Button */}
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition"
