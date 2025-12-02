@@ -72,7 +72,6 @@ function AddNewInterview() {
     Generate 5 interview questions and answers in JSON format.`;
 
     try {
-      // Use retry logic with exponential backoff
       const result = await retryWithBackoff(
         async () => await chatSession.sendMessage(inputPrompt),
         3, // max retries
@@ -103,23 +102,28 @@ function AddNewInterview() {
       router.push(`dashboard/interview/${res[0]?.mockId}`);
     } catch (error) {
       console.error("Error generating interview:", error);
-      
+
       // Provide specific error messages based on error type
-      if (error.message?.includes("503") || error.message?.includes("overloaded")) {
+      if (
+        error.message?.includes("503") ||
+        error.message?.includes("overloaded")
+      ) {
         toast.error(
           "The AI service is currently overloaded. Please try again in a few moments.",
           { duration: 5000 }
         );
-      } else if (error.message?.includes("429") || error.message?.includes("rate limit")) {
+      } else if (
+        error.message?.includes("429") ||
+        error.message?.includes("rate limit")
+      ) {
         toast.error(
           "Rate limit exceeded. Please wait a moment before trying again.",
           { duration: 5000 }
         );
       } else if (error.message?.includes("API key")) {
-        toast.error(
-          "API configuration error. Please check your API key.",
-          { duration: 5000 }
-        );
+        toast.error("API configuration error. Please check your API key.", {
+          duration: 5000,
+        });
       } else {
         toast.error(
           "Failed to generate interview questions. Please try again.",
