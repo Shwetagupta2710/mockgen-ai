@@ -4,7 +4,6 @@ AI-powered mock interview platform to help students, freshers, and professionals
 
 MockGen AI simulates real interview experiences using AI-generated questions, speech-to-text analysis, and instant feedback — all inside a clean and intuitive interface.
 
----
 
 ## 📌 Features
 
